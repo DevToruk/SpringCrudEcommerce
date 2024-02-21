@@ -33,16 +33,14 @@ public class DetalleOrden {
 
 	
 
-	public DetalleOrden(Integer id, String nombre, double cantidad, double precio, double total, Orden orden,
-			Producto producto) {
+	public DetalleOrden(Integer id, String nombre, double cantidad, double precio, double total) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.total = total;
-		this.orden = orden;
-		this.producto = producto;
+
 	}
 
 
@@ -87,29 +85,6 @@ public class DetalleOrden {
 		this.total = total;
 	}
 
-	
-
-	public Orden getOrden() {
-		return orden;
-	}
-
-
-
-	public void setOrden(Orden orden) {
-		this.orden = orden;
-	}
-
-
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
 
 
 

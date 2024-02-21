@@ -28,7 +28,7 @@ public class ProductoController {
 	@GetMapping("")
 	public String show(Model model) {
 		model.addAttribute("productos", productoService.findAll());
-		return "producto/show";
+		return "productos/show";
 	}
 	
 	@GetMapping("/create")
@@ -39,10 +39,10 @@ public class ProductoController {
 	@PostMapping("/save")
 	public String save(Producto producto) {
 		LOGGER.info("este es el producto a guardar en la BD {}", producto);
-		Usuario u = new Usuario(1,"","","","","","","","",null,null);
+		Usuario u = new Usuario(1, "", "", "", "", "", "", "", "");
 		producto.setUsuario(u);
 		productoService.save(producto);
-		return "redirect::/productos";
+		return "redirect:/productos";
 	}
 	
 	

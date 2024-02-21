@@ -43,7 +43,7 @@ public class Usuario {
 	
 
 	public Usuario(Integer id, String nombre, String documento, String username, String email, String direccion,
-			String telefono, String tipo, String password, List<Producto> productos, List<Orden> ordenes) {
+			String telefono, String tipo, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -54,8 +54,7 @@ public class Usuario {
 		this.telefono = telefono;
 		this.tipo = tipo;
 		this.password = password;
-		this.productos = productos;
-		this.ordenes = ordenes;
+	
 	}
 
 
@@ -237,49 +236,6 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-
-
-
-
-
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-
-
-
-
-
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-
-
-
-
-
-
-
-	public List<Orden> getOrdenes() {
-		return ordenes;
-	}
-
-
-
-
-
-
-
-	public void setOrdenes(List<Orden> ordenes) {
-		this.ordenes = ordenes;
-	}
-
-
-
 
 
 
