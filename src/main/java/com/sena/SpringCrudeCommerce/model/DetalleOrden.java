@@ -88,6 +88,30 @@ public class DetalleOrden {
 
 
 
+	public Orden getOrden() {
+		return orden;
+	}
+
+
+
+	public void setOrden(Orden orden) {
+		this.orden = orden;
+	}
+
+
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "DetalleOrden [id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio
