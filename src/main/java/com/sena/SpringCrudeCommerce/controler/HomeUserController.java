@@ -1,8 +1,10 @@
 package com.sena.SpringCrudeCommerce.controler;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sena.SpringCrudeCommerce.model.DetalleOrden;
 import com.sena.SpringCrudeCommerce.model.Orden;
 import com.sena.SpringCrudeCommerce.model.Producto;
-import com.sena.SpringCrudeCommerce.service.ProductoService;
+import com.sena.SpringCrudeCommerce.model.Usuario;
+import com.sena.SpringCrudeCommerce.service.IDetalleOrdenService;
+import com.sena.SpringCrudeCommerce.service.IOrdenService;
+import com.sena.SpringCrudeCommerce.service.IProductoService;
+import com.sena.SpringCrudeCommerce.service.IUsuarioService;
 
 import ch.qos.logback.classic.Logger;
 
@@ -30,7 +36,16 @@ public class HomeUserController {
 
 	// instancia del servicio producto
 	@Autowired
-	private ProductoService productoService;
+	private IProductoService productoService;
+
+	@Autowired
+	private IUsuarioService usuarioService;
+
+	@Autowired
+	private IOrdenService ordenService;
+
+	@Autowired
+	private IDetalleOrdenService detalleOrdenService;
 
 	// lista
 	List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
@@ -82,14 +97,13 @@ public class HomeUserController {
 		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
 		Integer idProducto = producto.getId();
-		Boolean insertado = detalles.stream().anyMatch(prod->prod.getProducto().getId()==idProducto);
-		
+		Boolean insertado = detalles.stream().anyMatch(prod -> prod.getProducto().getId() == idProducto);
+
 		if (!insertado) {
 			// detalles
 			detalles.add(detalleOrden);
 		}
-		
-	
+
 		// suma de los totales de la lista que el usuario añada al carrito
 		// funcion de tipo lamda stream
 		// funcion anonima dt
@@ -123,11 +137,50 @@ public class HomeUserController {
 		model.addAttribute("orden", orden);
 		return "usuario/carrito";
 	}
-	
+
 	@GetMapping("/getCart")
 	public String getCart(Model model) {
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
 		return "usuario/carrito";
 	}
+
+	@GetMapping("/order")
+	public String order(Model model) {
+		Usuario usuario = usuarioService.findById(1).get();
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		model.addAttribute("usuario", usuario);
+		return "/usuario/resumenOrden";
+	}
+
+	@GetMapping("/saveOrder")
+	public String saveOrder() {
+		Date fechaCreacion = new Date();
+		orden.setFechaCreacion(fechaCreacion);
+		orden.setNumero(ordenService.generarNumeroOrden());
+		Usuario usuario = usuarioService.findById(1).get();
+		orden.setUsuario(usuario);
+		ordenService.save(orden);
+		// guardar los detalles de la orden
+		for (DetalleOrden dt : detalles) {
+			dt.setOrden(orden);
+			detalleOrdenService.save(dt);
+
+		}
+		// limpiar valores
+		orden = new Orden();
+		detalles.clear();
+		return "redirect:/";
+	}
+
+	@PostMapping("/search")
+	public String searchProducto(@RequestParam String nombre, Model model) {
+		LOGGER.info("Nombre del producto: {}", nombre);
+		List<Producto> productos = productoService.findAll().stream().filter(p -> p.getNombre().contains(nombre))
+				.collect(Collectors.toList());
+		model.addAttribute("productos", productos);
+		return "usuario/home";
+	}
+
 }

@@ -42,6 +42,46 @@ public class Usuario {
 
 	
 
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+
+
+
+
+
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+
+
+
+
+
+
+	public List<Orden> getOrdenes() {
+		return ordenes;
+	}
+
+
+
+
+
+
+
+	public void setOrdenes(List<Orden> ordenes) {
+		this.ordenes = ordenes;
+	}
+
+
+
+
+
+
+
 	public Usuario(Integer id, String nombre, String documento, String username, String email, String direccion,
 			String telefono, String tipo, String password) {
 		super();

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.sena.SpringCrudeCommerce.model.Producto;
 
-public interface ProductoService {
+public interface IProductoService {
 	public Producto save(Producto producto);// create
 
 	public Optional<Producto> get(Integer id);// read

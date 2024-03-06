@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlsn:th="http://thymeleaf.org">
+
+<head th:include="usuario/templateUser.html::head"></head>
+
+<body>
+
+	<div th:include="usuario/templateUser.html::header"></div>
+
+	<!-- ======= Hero Section ======= -->
+	<section>
+		<br>
+		<div class="container" th:include="usuario/templateUser.html::searchbar"></div>
+	</section><!-- End Hero Section -->
+
+	<main id="main">
+		<div class="container">
+			<h1 class="mt-4 mb-3">
+				eCommerce - Juanpis<small>Resumen de la orden</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a th:href="@{/}">Home</a>
+				</li>
+				<li class="breadcrumb-item active">Orden</li>
+			</ol>
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-9">
+							<div class="card-body">
+								<h5 class="card-title">Datos de la orden</h5><br>
+								<h6 th:text="'Nombre: ' +${usuario.nombre}"></h6>
+								<h6 th:text="'Email: ' +${usuario.email}"></h6>
+								<h6 th:text="'Dirección: ' +${usuario.direccion}"></h6><br>
+								<h5 class="card-title">Productos</h5>
+								<div class="alert alert-light" role="alert">
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">Producto</th>
+												<th scope="col">Precio</th>
+												<th scope="col">Cantidad</th>
+												<th scope="col">Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="dtOrden:${cart}">
+												<td th:text="${dtOrden.nombre}"></td>
+												<td th:text="${dtOrden.precio}"></td>
+												<td th:text="${dtOrden.cantidad}"></td>
+												<td th:text="${dtOrden.total}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<h2 class="card-title">Resumen Orden</h2>
+							<ul class="list-group">
+								<li class="list-group-item">
+									<h5 th:text="'Total: ' + ${orden.total}"></h5>
+								</li>
+								<a th:href="@{saveOrder}" class="btn btn-dark">Generar</a>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:include="usuario/templateUser.html::footer"></div>
+	<!-- End Footer -->
+
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
+
+	<div th:include="usuario/templateUser.html::js"></div>
+
+</body>
+
+</html>

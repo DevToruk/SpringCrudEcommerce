@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sena.SpringCrudeCommerce.model.Producto;
 import com.sena.SpringCrudeCommerce.model.Usuario;
-import com.sena.SpringCrudeCommerce.service.ProductoService;
+import com.sena.SpringCrudeCommerce.service.IProductoService;
 import com.sena.SpringCrudeCommerce.service.UploadFileService;
 
 import ch.qos.logback.classic.Logger;
@@ -28,7 +28,7 @@ public class ProductoController {
 	private final Logger LOGGER = (Logger) LoggerFactory.getLogger(ProductoController.class);
 
 	@Autowired
-	private ProductoService productoService;
+	private IProductoService productoService;
 
 	// variable para la carga de imagenes
 	@Autowired
